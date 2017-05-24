@@ -9,32 +9,28 @@ import (
 	noaaerrors "github.com/cloudfoundry/noaa/errors"
         "github.com/cloudfoundry/gosteno"
 	"github.com/cloudfoundry/sonde-go/events"
-	"github.com/MonsantoCo/influxdb-firehose-nozzle/influxdbclient"
-	"github.com/MonsantoCo/influxdb-firehose-nozzle/nozzleconfig"
+	"github.com/MichaelSp/influxdb-firehose-nozzle/influxdbclient"
+	"github.com/MichaelSp/influxdb-firehose-nozzle/nozzleconfig"
 	"github.com/gorilla/websocket"
 	"code.cloudfoundry.org/localip"
-	"github.com/MonsantoCo/influxdb-firehose-nozzle/cfinstanceinfoapi"
+	"github.com/MichaelSp/influxdb-firehose-nozzle/cfinstanceinfoapi"
 )
 
 type InfluxDbFirehoseNozzle struct {
 	config           *nozzleconfig.NozzleConfig
         errs             <-chan error
         messages         <-chan *events.Envelope
-	authTokenFetcher AuthTokenFetcher
+	authToken        String
         consumer         *consumer.Consumer
 	client           *influxdbclient.Client
         log              *gosteno.Logger
 	appinfo          map[string]cfinstanceinfoapi.AppInfo
 }
 
-type AuthTokenFetcher interface {
-	FetchAuthToken() string
-}
-
-func NewInfluxDbFirehoseNozzle(config *nozzleconfig.NozzleConfig, tokenFetcher AuthTokenFetcher, log *gosteno.Logger, appinfo map[string]cfinstanceinfoapi.AppInfo) *InfluxDbFirehoseNozzle {
+func NewInfluxDbFirehoseNozzle(config *nozzleconfig.NozzleConfig, authToken String, log *gosteno.Logger, appinfo map[string]cfinstanceinfoapi.AppInfo) *InfluxDbFirehoseNozzle {
 	return &InfluxDbFirehoseNozzle{
 		config:           config,
-		authTokenFetcher: tokenFetcher,
+		authToken:        authToken,
                 log:              log,
 		appinfo:          appinfo,
 	}
@@ -44,7 +40,7 @@ func (d *InfluxDbFirehoseNozzle) Start() error {
 	var authToken string
 
 	if !d.config.DisableAccessControl {
-		authToken = d.authTokenFetcher.FetchAuthToken()
+		authToken = d.authToken
 	}
 
 	d.log.Info("Starting InfluxDb Firehose Nozzle...")

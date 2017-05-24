@@ -10,11 +10,10 @@ import (
 	"runtime/pprof"
 	"syscall"
 
-        "github.com/MonsantoCo/influxdb-firehose-nozzle/influxdbfirehosenozzle"
-        "github.com/MonsantoCo/influxdb-firehose-nozzle/nozzleconfig"
-        "github.com/MonsantoCo/influxdb-firehose-nozzle/logger"
-        "github.com/MonsantoCo/influxdb-firehose-nozzle/uaatokenfetcher"
-	"github.com/MonsantoCo/influxdb-firehose-nozzle/cfinstanceinfoapi"
+        "github.com/MichaelSp/influxdb-firehose-nozzle/influxdbfirehosenozzle"
+        "github.com/MichaelSp/influxdb-firehose-nozzle/nozzleconfig"
+        "github.com/MichaelSp/influxdb-firehose-nozzle/logger"
+	"github.com/MichaelSp/influxdb-firehose-nozzle/cfinstanceinfoapi"
 )
 
 var (
@@ -33,11 +32,6 @@ func main() {
 		log.Fatalf("Error parsing config: %s", err.Error())
 	}
 
-        tokenFetcher := uaatokenfetcher.New(
- 		config.UAATOKEN,
- 		log,
- 	)
-
 	threadDumpChan := registerGoRoutineDumpSignalChannel()
 	defer close(threadDumpChan)
 	go dumpGoRoutine(threadDumpChan)
@@ -51,7 +45,7 @@ func main() {
         	go cfinstanceinfoapi.UpdateAppMap(config, appmap)
 	}
 
-	influxDbNozzle := influxdbfirehosenozzle.NewInfluxDbFirehoseNozzle(config, tokenFetcher, log, appmap)
+	influxDbNozzle := influxdbfirehosenozzle.NewInfluxDbFirehoseNozzle(config, config.UAATOKEN, log, appmap)
 	influxDbNozzle.Start()
 }
 

@@ -1,7 +1,7 @@
 package nozzleconfig_test
 
 import (
-	"github.com/MonsantoCo/influxdb-firehose-nozzle/nozzleconfig"
+	"github.com/MichaelSp/influxdb-firehose-nozzle/nozzleconfig"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 	"os"

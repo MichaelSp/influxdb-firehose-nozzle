@@ -19,6 +19,7 @@ type NozzleConfig struct {
 	InfluxDbPassword       string
 	InfluxDbSslSkipVerify  bool
 	FlushDurationSeconds   uint32
+	SsLSkipVerify          bool
 	MetricPrefix           string
 	Deployment             string
 	DeploymentFilter       string
@@ -48,6 +49,7 @@ func Parse(configPath string) (*NozzleConfig, error) {
 	overrideWithEnvVar("NOZZLE_INFLUXDB_RP", &config.InfluxDbRP)
 	overrideWithEnvVar("NOZZLE_INFLUXDB_USER", &config.InfluxDbUser)
 	overrideWithEnvVar("NOZZLE_INFLUXDB_PASSWORD", &config.InfluxDbPassword)
+	overrideWithEnvBool("NOZZLE_INFLUXDB_SSL_SKIPVERIFY", &config.InfluxDbSslSkipVerify)
 	overrideWithEnvVar("NOZZLE_METRICPREFIX", &config.MetricPrefix)
 	overrideWithEnvVar("NOZZLE_DEPLOYMENT", &config.Deployment)
 	overrideWithEnvVar("NOZZLE_DEPLOYMENT_FILTER", &config.DeploymentFilter)

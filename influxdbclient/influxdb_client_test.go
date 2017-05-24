@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"net/http/httptest"
 
-	"github.com/MonsantoCo/influxdb-firehose-nozzle/influxdbclient"
+	"github.com/MichaelSp/influxdb-firehose-nozzle/influxdbclient"
 
 	"github.com/cloudfoundry/sonde-go/events"
 	"github.com/cloudfoundry/gosteno"

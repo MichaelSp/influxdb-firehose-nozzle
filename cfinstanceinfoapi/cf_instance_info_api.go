@@ -7,7 +7,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/MonsantoCo/influxdb-firehose-nozzle/nozzleconfig"
+	"github.com/MichaelSp/influxdb-firehose-nozzle/nozzleconfig"
 )
 
 type AppInfo struct {
