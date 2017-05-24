@@ -34,10 +34,7 @@ func main() {
 	}
 
         tokenFetcher := uaatokenfetcher.New(
- 		config.UAAURL,
- 		config.Client,
- 		config.ClientSecret,
- 		config.SsLSkipVerify,
+ 		config.UAATOKEN,
  		log,
  	)
 
