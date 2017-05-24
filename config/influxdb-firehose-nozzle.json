@@ -1,7 +1,5 @@
 {
-  "UAAURL": "https://uaa.onevoila.rocks",
-  "Client": "influxdb-firehose-nozzle",
-  "ClientSecret": "c1oudc0w",
+  "UAATOKEN": "your auth token that can be retrieved with `cf oauth-token`",
   "TrafficControllerURL": "wss://doppler.onevoila.rocks:4443",
   "FirehoseSubscriptionID": "influxdb-firehose-nozzle",
   "InfluxDbUrl": "https://88.198.249.61:8086",
@@ -11,7 +9,6 @@
   "InfluxDbPassword": "cf",
   "InfluxDbAllowSelfSigned": true,
   "FlushDurationSeconds": 15,
-  "SsLSkipVerify": true,
   "MetricPrefix": "cf",
   "Deployment": "cf-ops",
   "EventFilter": "CounterEvent, ValueMetric",
