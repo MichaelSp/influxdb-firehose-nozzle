@@ -9,9 +9,7 @@ import (
 )
 
 type NozzleConfig struct {
-	UAAURL                 string
-	Client                 string
-	ClientSecret           string
+	UAATOKEN               string
 	TrafficControllerURL   string
 	FirehoseSubscriptionID string
 	InfluxDbUrl            string
@@ -21,7 +19,6 @@ type NozzleConfig struct {
 	InfluxDbPassword       string
 	InfluxDbSslSkipVerify  bool
 	FlushDurationSeconds   uint32
-	SsLSkipVerify          bool
 	MetricPrefix           string
 	Deployment             string
 	DeploymentFilter       string
@@ -43,9 +40,7 @@ func Parse(configPath string) (*NozzleConfig, error) {
 		return nil, fmt.Errorf("Can not parse config file %s: %s", configPath, err)
 	}
 
-	overrideWithEnvVar("NOZZLE_UAAURL", &config.UAAURL)
-	overrideWithEnvVar("NOZZLE_CLIENT", &config.Client)
-	overrideWithEnvVar("NOZZLE_CLIENT_SECRET", &config.ClientSecret)
+	overrideWithEnvVar("NOZZLE_UAATOKEN", &config.UAATOKEN)
 	overrideWithEnvVar("NOZZLE_TRAFFICCONTROLLERURL", &config.TrafficControllerURL)
 	overrideWithEnvVar("NOZZLE_FIREHOSESUBSCRIPTIONID", &config.FirehoseSubscriptionID)
 	overrideWithEnvVar("NOZZLE_INFLUXDB_URL", &config.InfluxDbUrl)
@@ -53,7 +48,6 @@ func Parse(configPath string) (*NozzleConfig, error) {
 	overrideWithEnvVar("NOZZLE_INFLUXDB_RP", &config.InfluxDbRP)
 	overrideWithEnvVar("NOZZLE_INFLUXDB_USER", &config.InfluxDbUser)
 	overrideWithEnvVar("NOZZLE_INFLUXDB_PASSWORD", &config.InfluxDbPassword)
-	overrideWithEnvBool("NOZZLE_INFLUXDB_SSL_SKIPVERIFY", &config.InfluxDbSslSkipVerify)
 	overrideWithEnvVar("NOZZLE_METRICPREFIX", &config.MetricPrefix)
 	overrideWithEnvVar("NOZZLE_DEPLOYMENT", &config.Deployment)
 	overrideWithEnvVar("NOZZLE_DEPLOYMENT_FILTER", &config.DeploymentFilter)
