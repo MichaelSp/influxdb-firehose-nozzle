@@ -20,14 +20,14 @@ type InfluxDbFirehoseNozzle struct {
 	config           *nozzleconfig.NozzleConfig
         errs             <-chan error
         messages         <-chan *events.Envelope
-	authToken        String
+	authToken        string
         consumer         *consumer.Consumer
 	client           *influxdbclient.Client
         log              *gosteno.Logger
 	appinfo          map[string]cfinstanceinfoapi.AppInfo
 }
 
-func NewInfluxDbFirehoseNozzle(config *nozzleconfig.NozzleConfig, authToken String, log *gosteno.Logger, appinfo map[string]cfinstanceinfoapi.AppInfo) *InfluxDbFirehoseNozzle {
+func NewInfluxDbFirehoseNozzle(config *nozzleconfig.NozzleConfig, authToken string, log *gosteno.Logger, appinfo map[string]cfinstanceinfoapi.AppInfo) *InfluxDbFirehoseNozzle {
 	return &InfluxDbFirehoseNozzle{
 		config:           config,
 		authToken:        authToken,
